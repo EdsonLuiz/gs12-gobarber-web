@@ -6,6 +6,7 @@ export default createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    outline: none;
   }
 
   body {
