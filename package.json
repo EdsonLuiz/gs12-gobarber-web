@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.1",
+    "@types/yup": "^0.29.3",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "eslint": "6",
