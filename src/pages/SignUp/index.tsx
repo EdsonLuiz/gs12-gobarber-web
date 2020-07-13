@@ -13,7 +13,6 @@ import logoImg from '../../assets/logo.svg';
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  console.log(formRef);
 
   const handleSubmit = useCallback(async (data: Object) => {
     try {
