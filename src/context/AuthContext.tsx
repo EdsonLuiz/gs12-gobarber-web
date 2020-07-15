@@ -20,6 +20,7 @@ interface IAuthState {
 interface AuthContextData {
   user: object;
   signIn(credentials: ISignInCredentials): Promise<void>;
+  signOut(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -50,8 +51,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({ token, user });
   }, []);
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@GoBarber:token');
+    localStorage.removeItem('@GoBarber:user');
+
+    setData({} as IAuthState);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
