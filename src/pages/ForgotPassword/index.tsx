@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiLogIn, FiMail } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
@@ -12,12 +12,14 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
 import { useToast } from '../../context/ToastContext';
+import api from '../../services/api';
 
 interface IForgotPasswordFormData {
   email: string;
 }
 
 const ForgotPassword: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
@@ -25,6 +27,7 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: IForgotPasswordFormData) => {
       try {
+        setLoading(true);
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           email: Yup.string()
@@ -37,6 +40,16 @@ const ForgotPassword: React.FC = () => {
         });
 
         /* recuperação de senha */
+        await api.post('/password/forgot', {
+          email: data.email,
+        });
+
+        addToast({
+          type: 'success',
+          title: 'E-mail de recuperação de senha enviado.',
+          description:
+            'Enviamos um e-mail para confirmar a recuperação de sua senha, cheque sua caixa de entrada.',
+        });
 
         /* history.push('/dashboard'); */
       } catch (error) {
@@ -51,6 +64,8 @@ const ForgotPassword: React.FC = () => {
           description:
             'Ocorreu um erro durante recuperação de senha, tente novamente',
         });
+      } finally {
+        setLoading(false);
       }
     },
     [addToast],
@@ -65,7 +80,9 @@ const ForgotPassword: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Recuperar senha</h1>
             <Input icon={FiMail} name="email" placeholder="E-mail" />
-            <Button type="submit">Recuperar</Button>
+            <Button loading={loading} type="submit">
+              Recuperar
+            </Button>
           </Form>
 
           <Link to="/">

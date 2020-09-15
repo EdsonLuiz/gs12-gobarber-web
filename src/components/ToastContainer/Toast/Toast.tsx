@@ -6,9 +6,9 @@ import {
   FiCheckCircle,
 } from 'react-icons/fi';
 
+import { setTimeout } from 'timers';
 import { Container } from './styles';
 import { IToastMessage, useToast } from '../../../context/ToastContext';
-import { setTimeout } from 'timers';
 
 interface IToastProps {
   message: IToastMessage;
@@ -45,7 +45,7 @@ const Toast: React.FC<IToastProps> = ({ message, style }) => {
     <Container
       style={style}
       type={message.type}
-      hasDescription={!!message.description}
+      has_description={Number(!!message.description)}
     >
       {icons[message.type || 'info']}
       <div>
