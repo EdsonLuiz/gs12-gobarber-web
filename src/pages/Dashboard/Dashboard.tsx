@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiPower, FiClock } from 'react-icons/fi';
 import {
   Calendar,
@@ -9,12 +9,15 @@ import {
   NextAppointment,
   Profile,
   Schedule,
+  Section,
+  Appointment,
 } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../context/AuthContext';
 
 const Dashboard: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const { signOut, user } = useAuth();
 
   return (
@@ -66,6 +69,74 @@ const Dashboard: React.FC = () => {
               </span>
             </div>
           </NextAppointment>
+
+          <Section>
+            <strong>Manhã</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+
+              <div>
+                <img
+                  src="https://api.adorable.io/avatars/285/abott@adorable.png"
+                  alt="avatars"
+                />
+                <strong>UserName</strong>
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+
+              <div>
+                <img
+                  src="https://api.adorable.io/avatars/285/abott@adorable.png"
+                  alt="avatars"
+                />
+                <strong>UserName</strong>
+              </div>
+            </Appointment>
+          </Section>
+
+          <Section>
+            <strong>Tarde</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                13:00
+              </span>
+
+              <div>
+                <img
+                  src="https://api.adorable.io/avatars/285/abott@adorable.png"
+                  alt="avatars"
+                />
+                <strong>UserName</strong>
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                13:00
+              </span>
+
+              <div>
+                <img
+                  src="https://api.adorable.io/avatars/285/abott@adorable.png"
+                  alt="avatars"
+                />
+                <strong>UserName</strong>
+              </div>
+            </Appointment>
+          </Section>
         </Schedule>
 
         <Calendar>asdf</Calendar>
